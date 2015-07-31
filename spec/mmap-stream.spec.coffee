@@ -61,6 +61,26 @@ describe "mmap-stream", ->
     expect(@stream.stack).toEqual [4]
     expect(@stream.pushing).toEqual false 
 
+  it "should push all the way when possible", ->
+    @stream.pushing = false
+
+    pushed = []
+
+    spyOn(MmapStream.__super__, "push").andCallFake (chunk) ->
+      pushed.push chunk
+      true
+
+    @stream.stack = [1, 2, 3, 4]
+    @stream.buffer = new Buffer [5, 6, 7]
+    @stream.position = 2
+
+    @stream._read "foo"
+
+    expect(pushed.length).toEqual 5
+    expect(pushed.slice(0,4)).toEqual [1, 2, 3, 4]
+    expect(Array.prototype.slice.call(pushed[4],0)).toEqual [5, 6]
+    expect(@stream.stack.length).toEqual 0
+
   it "should push all remaining data when finished", ->
     pushed = []
 
@@ -69,9 +89,14 @@ describe "mmap-stream", ->
       false
 
     @stream.stack = [1, 2, 3, 4]
+    @stream.buffer = new Buffer [5, 6, 7]
+    @stream.position = 2
     @stream.emit "finish"
 
-    expect(pushed).toEqual [1, 2, 3, 4, null]
+    expect(pushed.length).toEqual 6
+    expect(pushed.slice(0,4)).toEqual [1, 2, 3, 4]
+    expect(Array.prototype.slice.call(pushed[4],0)).toEqual [5, 6]
+    expect(pushed[5]).toEqual null
 
   it "should be able to malloc stuff", ->
     expect(@stream.buffer.length).toEqual @stream.size
