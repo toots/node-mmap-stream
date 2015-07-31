@@ -50,5 +50,11 @@ class module.exports extends Duplex
 
   _read: ->
     @pushing = true
+
     while @pushing and 0 < @stack.length
       @push @stack.shift()
+
+    return unless @pushing or @position == 0
+
+    @push @buffer.slice(0, @position)
+    @position = 0
