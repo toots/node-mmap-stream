@@ -8,13 +8,14 @@
   },
   "author": "Romain Beauxis <toots@rastageeks.org>",
   "homepage": "https://github.com/toots/node-mmap-stream",
-  "repository": { 
+  "repository": {
     "type": "git",
     "url": "https://github.com/toots/node-mmap-stream.git"
   },
   "license": "WTFPL",
   "dependencies": {
-    "mmap.js": "^1.0.0"
+    "mmap.js": "^1.0.0",
+    "tmp": "0.0.26"
   },
   "devDependencies": {
     "jasmine-node": "^1.14.5"

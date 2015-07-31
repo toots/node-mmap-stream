@@ -1,5 +1,7 @@
+fs       = require "fs"
 mmap     = require "mmap.js"
 {Duplex} = require "stream"
+tmp      = require "tmp"
 
 class module.exports extends Duplex
   constructor: (@size) ->
@@ -17,9 +19,15 @@ class module.exports extends Duplex
     @pushing = super
 
   malloc: ->
+    {fd, removeCallback} = tmp.fileSync()
+
+    fs.ftruncateSync fd, @size
+
     @buffer = mmap.alloc @size, mmap.PROT_READ | mmap.PROT_WRITE,
-      mmap.MAP_ANON | mmap.MAP_PRIVATE, -1, 0
+      mmap.MAP_SHARED, fd, 0
     @position = 0
+
+    removeCallback()
 
   _write: (chunk, encoding, cb) ->
     if @pushing

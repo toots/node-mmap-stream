@@ -72,3 +72,6 @@ describe "mmap-stream", ->
     @stream.emit "finish"
 
     expect(pushed).toEqual [1, 2, 3, 4, null]
+
+  it "should be able to malloc stuff", ->
+    expect(@stream.buffer.length).toEqual @stream.size
