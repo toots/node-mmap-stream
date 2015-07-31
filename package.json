@@ -1,6 +1,6 @@
 {
   "name": "mmap-stream",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "mmap-backed cached stream",
   "main": "lib/mmap-stream.js",
   "scripts": {
