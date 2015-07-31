@@ -11,6 +11,7 @@ class module.exports extends Duplex
 
     @on "finish", =>
       @push chunk for chunk in @stack
+      @push @buffer.slice(0, @position) if 0 < @position
       @push null
 
     super decodeStrings: true
