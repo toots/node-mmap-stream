@@ -31,7 +31,7 @@ class module.exports extends Duplex
     removeCallback()
 
   _write: (chunk, encoding, cb) ->
-    if @pushing
+    if @pushing and @stack.length == 0 and @position == 0
       @push chunk
       return cb()
 
