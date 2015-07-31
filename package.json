@@ -1,0 +1,22 @@
+{
+  "name": "mmap-stream",
+  "version": "0.1.0",
+  "description": "mmap-backed cached stream",
+  "main": "lib/mmap-stream.js",
+  "scripts": {
+    "test": "jasmine-node --coffee spec/"
+  },
+  "author": "Romain Beauxis <toots@rastageeks.org>",
+  "homepage": "https://github.com/toots/node-mmap-stream",
+  "repository": { 
+    "type": "git",
+    "url": "https://github.com/toots/node-mmap-stream.git"
+  },
+  "license": "WTFPL",
+  "dependencies": {
+    "mmap.js": "^1.0.0"
+  },
+  "devDependencies": {
+    "jasmine-node": "^1.14.5"
+  }
+}
