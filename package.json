@@ -13,6 +13,14 @@
     "url": "https://github.com/toots/node-mmap-stream.git"
   },
   "license": "WTFPL",
+  "files": [
+    "Cakefile",
+    "lib/",
+    "package.json",
+    "README.md",
+    "spec/",
+    "src/"
+  ],
   "dependencies": {
     "mmap.js": "^1.0.0",
     "tmp": "0.0.26"
